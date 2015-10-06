@@ -15,6 +15,7 @@ public class PullToBounceWrapper: UIView {
 
     var pullDist: CGFloat = 80
     var bendDist: CGFloat = 40
+    var hideScrollView: Bool = false
     var stopPos:CGFloat {
         get {
             return pullDist + bendDist
@@ -66,7 +67,6 @@ public class PullToBounceWrapper: UIView {
         self.addSubview(bounceView)
         
         self.scrollView = scrollView
-//        scrollView.frame = self.frame
         scrollView.backgroundColor = UIColor.clearColor()
         self.addSubview(scrollView)
         scrollView.addObserver(self, forKeyPath: contentOffsetKeyPath, options: .Initial, context: &KVOContext)
@@ -86,11 +86,17 @@ public class PullToBounceWrapper: UIView {
             if y < pullDist {
                 bounceView.frame.y = y
                 bounceView.wave(0)
-                scrollView?.alpha = (pullDist - y)/pullDist
+                
+                if hideScrollView {
+                    scrollView?.alpha = (pullDist - y)/pullDist
+                }
             }
             else if y < stopPos {
                 bounceView.wave(y - pullDist)
-                scrollView?.alpha = 0
+
+                if hideScrollView {
+                    scrollView?.alpha = 0
+                }
             }
             else if y > stopPos {
                 scrollView?.scrollEnabled = false
@@ -99,11 +105,17 @@ public class PullToBounceWrapper: UIView {
                 bounceView.wave(stopPos - pullDist)
                 bounceView.didRelease(stopPos - pullDist)
                 self.didPullToRefresh?()
-                scrollView?.alpha = 0
+                
+                if hideScrollView {
+                    scrollView?.alpha = 0
+                }
             }
         } else {
             bounceView.frame.y = 0
-            scrollView?.alpha = 1
+
+            if hideScrollView {
+                scrollView?.alpha = 1
+            }
         }
     }
     
