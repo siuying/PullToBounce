@@ -37,13 +37,14 @@ class BounceView: UIView {
             moveUpDist: moveUpDist,
             color: color
         )
-        
+        ballView.autoresizingMask = [.FlexibleRightMargin, .FlexibleLeftMargin]
+
         waveView = WaveView(
             frame:CGRectMake(0, 0, ballView.frame.width, frame.height),
             bounceDuration: bounceDuration,
             color: color
         )
-        
+        waveView.autoresizingMask = [.FlexibleBottomMargin, .FlexibleWidth]
         super.init(frame: frame)
         
         ballView.hidden = true

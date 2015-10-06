@@ -62,6 +62,7 @@ public class PullToBounceWrapper: UIView {
             , ballSize: ballSize
             , moveUpDist: moveUpDist
         )
+        bounceView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         self.addSubview(bounceView)
         
         self.scrollView = scrollView
