@@ -12,11 +12,13 @@ import UIKit
 
 
 public class PullToBounceWrapper: UIView {
+    public var hideScrollView: Bool = false
+    public var enabled : Bool = true
+    public var didPullToRefresh: (()->())?
+    public var scrollView: UIScrollView?
 
     var pullDist: CGFloat = 80
     var bendDist: CGFloat = 40
-    var hideScrollView: Bool = false
-    var enabled : Bool = true
 
     var stopPos:CGFloat {
         get {
@@ -24,10 +26,7 @@ public class PullToBounceWrapper: UIView {
         }
     }
 
-    public var didPullToRefresh: (()->())?
-    
     var bounceView: BounceView!
-    public var scrollView: UIScrollView?
 
     /**
     Please addSubView this insted of your scrollView.
