@@ -16,6 +16,8 @@ public class PullToBounceWrapper: UIView {
     var pullDist: CGFloat = 80
     var bendDist: CGFloat = 40
     var hideScrollView: Bool = false
+    var enabled : Bool = true
+
     var stopPos:CGFloat {
         get {
             return pullDist + bendDist
@@ -130,7 +132,7 @@ public class PullToBounceWrapper: UIView {
     private var KVOContext = "PullToRefreshKVOContext"
     private let contentOffsetKeyPath = "contentOffset"
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<()>) {
-        if (context == &KVOContext && keyPath == contentOffsetKeyPath && object as? UIScrollView == scrollView) {
+        if (context == &KVOContext && keyPath == contentOffsetKeyPath && object as? UIScrollView == scrollView && enabled) {
             scrollViewDidScroll()
         }
         else {
