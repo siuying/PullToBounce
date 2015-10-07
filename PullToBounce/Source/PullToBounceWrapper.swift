@@ -131,8 +131,10 @@ public class PullToBounceWrapper: UIView {
     private var KVOContext = "PullToRefreshKVOContext"
     private let contentOffsetKeyPath = "contentOffset"
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<()>) {
-        if (context == &KVOContext && keyPath == contentOffsetKeyPath && object as? UIScrollView == scrollView && enabled) {
-            scrollViewDidScroll()
+        if (context == &KVOContext && keyPath == contentOffsetKeyPath && object as? UIScrollView == scrollView) {
+            if enabled {
+                scrollViewDidScroll()                
+            }
         }
         else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
